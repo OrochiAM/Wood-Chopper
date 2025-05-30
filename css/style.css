@@ -1,0 +1,64 @@
+:root {
+  --log-height: 14vh;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  outline: dashed 2px red;
+}
+
+body {
+  height: 100vh;
+}
+
+.top {
+  height: calc(7 * var(--log-height));
+  width: 100%;
+  background-color: lightblue;
+  position: absolute;
+  top: calc(var(--log-height) * -1);
+  display: flex;
+  justify-content: center;
+  z-index: 10000;
+}
+.top .game {
+  position: relative;
+}
+.top .game .log {
+  background-image: url("../images/bark.png");
+  width: var(--log-height);
+  height: var(--log-height);
+  background-size: cover;
+  position: relative;
+}
+.top .game .log .right-branch {
+  position: absolute;
+  right: calc(-2 * var(--log-height));
+  width: calc(var(--log-height) * 2);
+  height: var(--log-height);
+}
+.top .game .log .left-branch {
+  position: absolute;
+  left: calc(var(--log-height) * -2);
+  transform: scaleX(-1);
+  width: calc(var(--log-height) * 2);
+  height: var(--log-height);
+}
+.top .lumberjack {
+  position: absolute;
+  background-image: url(../images/cica.png);
+  background-size: cover;
+  width: calc(var(--log-height) * 1.2);
+  height: calc(var(--log-height) * 1.2);
+  right: calc(var(--log-height) * 1.15);
+  bottom: -3vh;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 0;
+  height: calc(100vh - 6 * var(--log-height));
+  width: 100%;
+  background-color: lightgreen;
+}/*# sourceMappingURL=style.css.map */
