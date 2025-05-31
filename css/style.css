@@ -5,7 +5,6 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  outline: dashed 2px red;
 }
 
 body {
@@ -47,12 +46,19 @@ body {
 }
 .top .lumberjack {
   position: absolute;
-  background-image: url(../images/cica.png);
+  background-image: url(../images/cica0.png);
   background-size: cover;
   width: calc(var(--log-height) * 1.2);
   height: calc(var(--log-height) * 1.2);
-  right: calc(var(--log-height) * 1.15);
   bottom: -3vh;
+  z-index: 10000;
+}
+.top .lj-left {
+  right: calc(var(--log-height) * 1.15);
+}
+.top .lj-right {
+  left: calc(var(--log-height) * 1.15);
+  transform: scaleX(-1);
 }
 
 .bottom {
