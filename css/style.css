@@ -11,6 +11,13 @@ body {
   height: 100vh;
 }
 
+img {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
+}
+
 .top {
   height: calc(7 * var(--log-height));
   width: 100%;
@@ -30,6 +37,7 @@ body {
   height: var(--log-height);
   background-size: cover;
   position: relative;
+  border: solid 1px rgba(0, 0, 0, 0);
 }
 .top .game .log .right-branch {
   position: absolute;
@@ -44,6 +52,20 @@ body {
   width: calc(var(--log-height) * 2);
   height: var(--log-height);
 }
+.top .explosion {
+  position: absolute;
+  bottom: -3vh;
+  z-index: 100000;
+  width: calc(var(--log-height) * 1.4);
+  height: calc(var(--log-height) * 1.4);
+  display: none;
+}
+.top .exp-left {
+  right: calc(var(--log-height) * 1.1);
+}
+.top .exp-right {
+  left: calc(var(--log-height) * 1.1);
+}
 .top .lumberjack {
   position: absolute;
   background-image: url(../images/cica0.png);
@@ -51,7 +73,6 @@ body {
   width: calc(var(--log-height) * 1.2);
   height: calc(var(--log-height) * 1.2);
   bottom: -3vh;
-  z-index: 10000;
 }
 .top .lj-left {
   right: calc(var(--log-height) * 1.15);
@@ -67,4 +88,11 @@ body {
   height: calc(100vh - 6 * var(--log-height));
   width: 100%;
   background-color: lightgreen;
+}
+
+.score {
+  position: absolute;
+  z-index: 100000000;
+  left: 10px;
+  top: 10px;
 }/*# sourceMappingURL=style.css.map */

@@ -12,6 +12,11 @@ body {
   height: 100vh;
 }
 
+img {
+  user-select: none;
+  pointer-events: none;
+}
+
 .top {
   height: calc(7 * var(--log-height));
   width: 100%;
@@ -30,7 +35,7 @@ body {
       height: var(--log-height);
       background-size: cover;
       position: relative;
-
+      border: solid 1px #00000000;
       .right-branch {
         position: absolute;
         right: calc(-2 * var(--log-height));
@@ -48,6 +53,23 @@ body {
     }
   }
 
+  .explosion {
+    position: absolute;
+    bottom: -3vh;
+    z-index: 100000;
+    width: calc(var(--log-height) * 1.4);
+    height: calc(var(--log-height) * 1.4);
+    display: none;
+  }
+
+  .exp-left {
+    right: calc(var(--log-height) * 1.1);
+  }
+
+  .exp-right {
+    left: calc(var(--log-height) * 1.1);
+  }
+
   .lumberjack {
     position: absolute;
     background-image: url(../images/cica0.png);
@@ -55,7 +77,6 @@ body {
     width: calc(var(--log-height) * 1.2);
     height: calc(var(--log-height) * 1.2);
     bottom: -3vh;
-    z-index: 10000;
   }
 
   .lj-left {
@@ -74,4 +95,11 @@ body {
   height: calc(100vh - calc(6 * var(--log-height)));
   width: 100%;
   background-color: lightgreen;
+}
+
+.score {
+  position: absolute;
+  z-index: 100000000;
+  left: 10px;
+  top: 10px;
 }
