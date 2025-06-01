@@ -1,7 +1,7 @@
 const lumberjack = document.querySelector('.lumberjack');
 const explosion = document.querySelector('.explosion');
 const windowWidth = window.innerWidth;
-
+const scoreP = document.querySelector('.score');
 const logs = document.querySelectorAll('.log');
 let branchArray = [0, 0, 0, 0, 0, 0, 0];
 
@@ -79,6 +79,8 @@ window.addEventListener('keydown', (e) => {
         lost = true;
         explosion.style.display = 'block';
         hurtSound.play();
+      } else {
+        scoreP.innerHTML = ++score;
       }
     } else if (keyPressed === 'ArrowRight' || keyPressed === 'd') {
       lumberjack.className = 'lumberjack lj-right';
@@ -89,6 +91,8 @@ window.addEventListener('keydown', (e) => {
         lost = true;
         explosion.style.display = 'block';
         hurtSound.play();
+      } else {
+        scoreP.innerHTML = ++score;
       }
     }
   }

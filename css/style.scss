@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Micro+5&family=Tiny5&display=swap');
+
 :root {
   --log-height: 14vh;
 }
@@ -5,7 +7,8 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  //outline: dashed 2px red;
+  // outline: dashed 2px red;
+  font-family: 'Micro 5';
 }
 
 body {
@@ -102,4 +105,9 @@ img {
   z-index: 100000000;
   left: 10px;
   top: 10px;
+  font-size: 50px;
+  background-color: #533442;
+  border: solid 8px #351825;
+  padding: 0 0.1em 0 0.2em;
+  color: #fff;
 }
