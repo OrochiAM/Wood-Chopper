@@ -66,6 +66,12 @@ const handleLeftRight = () => {};
 
 window.addEventListener('keydown', (e) => {
   let keyPressed = e.key;
+
+  if (keyPressed == ' ') {
+    popup.style.display = 'none';
+    timer = setInterval(timerFunction, 1000);
+  }
+
   if (
     !lost &&
     (keyPressed === 'ArrowLeft' ||
