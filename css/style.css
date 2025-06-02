@@ -13,7 +13,8 @@ body {
   height: 100vh;
 }
 
-img {
+.tree,
+.lumberjack {
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -28,7 +29,7 @@ img {
   top: calc(var(--log-height) * -1);
   display: flex;
   justify-content: center;
-  z-index: 10000;
+  z-index: 100;
 }
 .top .game {
   position: relative;
@@ -57,7 +58,7 @@ img {
 .top .explosion {
   position: absolute;
   bottom: -3vh;
-  z-index: 100000;
+  z-index: 1000;
   width: calc(var(--log-height) * 1.4);
   height: calc(var(--log-height) * 1.4);
   display: none;
@@ -88,7 +89,7 @@ img {
   width: 4vh;
   height: var(--log-height);
   bottom: 0;
-  z-index: 1000000;
+  z-index: 1000;
 }
 .top .x-space img {
   position: absolute;
@@ -114,7 +115,7 @@ img {
   display: flex;
   justify-content: space-between;
   position: absolute;
-  z-index: 100000000;
+  z-index: 1000;
   padding-left: 20px;
   padding-right: 10px;
   padding-top: 20px;
@@ -145,4 +146,40 @@ img {
   position: absolute;
   font-size: 10vh;
   padding-left: 0.9vh;
+}
+
+.popup {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  background-color: rgba(34, 32, 52, 0.4588235294);
+}
+.popup .keys {
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 30vh;
+  width: 30vh;
+  border: solid 10px #222034;
+  display: grid;
+  place-items: center;
+}
+.popup .keys img {
+  width: 90%;
+}
+.popup .play {
+  width: 12vh;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+.popup .play:hover {
+  transform: scale(0.9);
+}
+.popup .play:active {
+  transform: scale(0.95);
+  transition-duration: 0.1s;
 }/*# sourceMappingURL=style.css.map */

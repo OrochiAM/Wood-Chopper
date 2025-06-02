@@ -5,6 +5,8 @@ const scoreP = document.querySelector('.score');
 const logs = document.querySelectorAll('.log');
 const timerText = document.querySelector('.timer-text');
 const x = document.querySelector('.x-space');
+const playButton = document.querySelector('.play');
+const popup = document.querySelector('.popup');
 
 let branchArray = [0, 0, 0, 0, 0, 0, 0];
 
@@ -101,6 +103,7 @@ window.addEventListener('keydown', (e) => {
         lost = true;
         explosion.style.display = 'block';
         hurtSound.play();
+        clearInterval(timer);
       } else {
         scoreP.innerHTML = ++score;
       }
@@ -126,15 +129,15 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
-window.addEventListener('click', (e) => {
-  let clickPosition = e.clientX;
+// window.addEventListener('click', (e) => {
+//   let clickPosition = e.clientX;
 
-  if (clickPosition < windowWidth / 2) {
-    lumberjack.className = 'lumberjack lj-left';
-  } else {
-    lumberjack.className = 'lumberjack lj-right';
-  }
-});
+//   if (clickPosition < windowWidth / 2) {
+//     lumberjack.className = 'lumberjack lj-left';
+//   } else {
+//     lumberjack.className = 'lumberjack lj-right';
+//   }
+// });
 
 let time = 60;
 
@@ -148,4 +151,9 @@ const timerFunction = () => {
   }
 };
 
-let timer = setInterval(timerFunction, 1000);
+let timer;
+
+playButton.addEventListener('click', () => {
+  popup.style.display = 'none';
+  timer = setInterval(timerFunction, 1000);
+});
