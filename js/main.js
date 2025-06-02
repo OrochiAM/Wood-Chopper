@@ -3,6 +3,9 @@ const explosion = document.querySelector('.explosion');
 const windowWidth = window.innerWidth;
 const scoreP = document.querySelector('.score');
 const logs = document.querySelectorAll('.log');
+const timerText = document.querySelector('.timer-text');
+const x = document.querySelector('.x-space');
+
 let branchArray = [0, 0, 0, 0, 0, 0, 0];
 
 function getRnd(min, max) {
@@ -56,10 +59,18 @@ console.log(branchArray);
 
 let score = 0;
 let lost = false;
-window.addEventListener('keydown', (e) => {
-  if (!lost) {
-    let keyPressed = e.key;
+let timeout;
+const handleLeftRight = () => {};
 
+window.addEventListener('keydown', (e) => {
+  let keyPressed = e.key;
+  if (
+    !lost &&
+    (keyPressed === 'ArrowLeft' ||
+      keyPressed === 'a' ||
+      keyPressed === 'ArrowRight' ||
+      keyPressed === 'd')
+  ) {
     let chopSound = new Audio(`sounds/chop${getRnd(0, 2)}.wav`);
     let hurtSound = new Audio('sounds/hurt.mp3');
 
@@ -68,11 +79,22 @@ window.addEventListener('keydown', (e) => {
     generateBranch(0);
     shiftArray();
     logHandle();
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      x.innerHTML = '';
+    }, 350);
 
+    timeoutTimer = true;
     console.log(branchArray);
     if (keyPressed === 'ArrowLeft' || keyPressed === 'a') {
       lumberjack.className = 'lumberjack lj-left';
       explosion.className = 'explosion exp-left';
+
+      x.className = 'x-space x-left';
+      x.innerHTML = `<img src="images/x.png" style="top: ${getRnd(
+        3,
+        11
+      )}vh; left: ${getRnd(0, 3)}vh" />`;
 
       if (branchArray[6] == 1) {
         logs[6].appendChild(createBranch(1));
@@ -84,7 +106,13 @@ window.addEventListener('keydown', (e) => {
       }
     } else if (keyPressed === 'ArrowRight' || keyPressed === 'd') {
       lumberjack.className = 'lumberjack lj-right';
+
       explosion.className = 'explosion exp-right';
+      x.className = 'x-space x-right';
+      x.innerHTML = `<img src="images/x.png" style="top: ${getRnd(
+        3,
+        11
+      )}vh; right: ${getRnd(0, 3)}vh" />`;
 
       if (branchArray[6] == 2) {
         logs[6].appendChild(createBranch(2));
@@ -107,3 +135,17 @@ window.addEventListener('click', (e) => {
     lumberjack.className = 'lumberjack lj-right';
   }
 });
+
+let time = 60;
+
+const timerFunction = () => {
+  time--;
+  timerText.innerHTML = time;
+  timerText.style.color = `hsl(${time * 2}, 100%, 60%)`;
+  if (time == 0) {
+    lost = true;
+    clearInterval(timer);
+  }
+};
+
+let timer = setInterval(timerFunction, 1000);

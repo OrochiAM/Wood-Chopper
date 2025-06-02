@@ -83,6 +83,23 @@ img {
   left: calc(var(--log-height) * 1.15);
   transform: scaleX(-1);
 }
+.top .x-space {
+  position: absolute;
+  width: 4vh;
+  height: var(--log-height);
+  bottom: 0;
+  z-index: 1000000;
+}
+.top .x-space img {
+  position: absolute;
+  width: 5vh;
+}
+.top .x-left {
+  right: var(--log-height);
+}
+.top .x-right {
+  left: var(--log-height);
+}
 
 .bottom {
   position: absolute;
@@ -92,14 +109,40 @@ img {
   background-color: lightgreen;
 }
 
-.score {
+.ui {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   position: absolute;
   z-index: 100000000;
-  left: 10px;
-  top: 10px;
+  padding-left: 20px;
+  padding-right: 10px;
+  padding-top: 20px;
+}
+
+.score {
   font-size: 50px;
   background-color: #533442;
   border: solid 8px #351825;
   padding: 0 0.1em 0 0.2em;
   color: #fff;
+  height: 65px;
+}
+
+.timer {
+  font-size: 100px;
+  line-height: 47px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.timer img {
+  width: 15vh;
+}
+.timer p {
+  color: hsl(120, 100%, 60%);
+  position: absolute;
+  font-size: 10vh;
+  padding-left: 0.9vh;
 }/*# sourceMappingURL=style.css.map */
