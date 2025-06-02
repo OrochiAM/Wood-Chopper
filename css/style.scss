@@ -24,7 +24,8 @@ body {
 .top {
   height: calc(7 * var(--log-height));
   width: 100%;
-  background-color: lightblue;
+  background-image: url('../images/sky.png');
+  background-size: cover;
   position: absolute;
   top: calc(var(--log-height) * -1);
   display: flex;
@@ -121,7 +122,8 @@ body {
   bottom: 0;
   height: calc(100vh - calc(6 * var(--log-height)));
   width: 100%;
-  background-color: lightgreen;
+  background-image: url('../images/zemlja.png');
+  background-size: cover;
 }
 
 .ui {
