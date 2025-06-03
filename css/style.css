@@ -102,6 +102,13 @@ body {
 .top .x-right {
   left: var(--log-height);
 }
+.top .grass {
+  position: absolute;
+  z-index: 100;
+  bottom: 0;
+  left: -2vh;
+  width: 18vh;
+}
 
 .bottom {
   position: absolute;
