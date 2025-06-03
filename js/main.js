@@ -8,21 +8,25 @@ const x = document.querySelector('.x-space');
 const playButton = document.querySelector('.play');
 const popup = document.querySelector('.popup');
 
+// NIZ VREDNOSTI KOJE SE PODUDARAJU SA ORIJENTACIJOM GRANA 1-LEVA 2-DESNA 0-NEMA GRANE
 let branchArray = [0, 0, 0, 0, 0, 0, 0];
 
 function getRnd(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// KRIERANJE GRANE NA ODNOSU BROJA
 const generateBranch = (branchI) => {
   let branch = branchI == 6 ? 0 : getRnd(0, 2);
   branchArray[branchI] = branch;
 };
 
+// POPUNJAVANJE NIZA GRANAMA
 for (const branchI in branchArray) {
   generateBranch(branchI);
 }
 
+// KREIRANJE SLIKE GRANE NA OSNOVU BROJA U NIZU
 const createBranch = (type) => {
   let logImg = document.createElement('img');
   logImg.src = 'images/branch.png';
@@ -39,6 +43,7 @@ const createBranch = (type) => {
   return logImg;
 };
 
+// DODAVANJE GRANA ODGOVARAJUCIM STABLIMA
 const logHandle = () => {
   for (let logI = 0; logI < 6; logI++) {
     let branchType = branchArray[logI];
@@ -52,24 +57,65 @@ const logHandle = () => {
 
 logHandle();
 
+// POMERANJE PRVIH 6 GRANA NA DOLA (JEDNA GRANA SE NE VIDI)
 const shiftArray = () => {
   for (let i = 6; i > 0; i--) {
     branchArray[i] = branchArray[i - 1];
   }
 };
+
 console.log(branchArray);
 
 let score = 0;
-let lost = false;
+let lost = true;
 let timeout;
-const handleLeftRight = () => {};
+let time = 60;
+
+// F-JA KOJA ODREDJUJE STA CE SE DESITI KADA SE KLIKNE LEVO ILI DESNO DUGME
+const handleLeftRight = (key) => {
+  let string;
+  key === 'ArrowLeft' ? (string = 'left') : (string = 'right');
+  let num = string == 'left' ? 1 : 2;
+
+  lumberjack.className = `lumberjack lj-${string}`;
+  explosion.className = `explosion exp-${string}`;
+
+  x.className = `x-space x-${string}`;
+  x.innerHTML = `<img src="images/x.png" style="top: ${getRnd(
+    3,
+    11
+  )}vh; ${string}: ${getRnd(0, 3)}vh" />`;
+  console.log(x.innerHTML);
+
+  if (branchArray[6] == num) {
+    logs[6].appendChild(createBranch(num));
+    lost = true;
+    popup.style.display = 'grid';
+    explosion.style.display = 'block';
+    hurtSound.play();
+    clearInterval(timer);
+  } else {
+    score++;
+    handleScore();
+  }
+};
+
+//POSTAVLJANJE VREMENA I SCORE-A
+const handleScore = () => {
+  scoreP.innerHTML = score;
+};
+
+const handleTime = () => {
+  timerText.innerHTML = time;
+};
+
+let hurtSound = new Audio('sounds/hurt.mp3');
 
 window.addEventListener('keydown', (e) => {
   let keyPressed = e.key;
 
-  if (keyPressed == ' ') {
-    popup.style.display = 'none';
-    timer = setInterval(timerFunction, 1000);
+  if (keyPressed == ' ' && lost) {
+    handleStart();
   }
 
   if (
@@ -80,61 +126,32 @@ window.addEventListener('keydown', (e) => {
       keyPressed === 'd')
   ) {
     let chopSound = new Audio(`sounds/chop${getRnd(0, 2)}.wav`);
-    let hurtSound = new Audio('sounds/hurt.mp3');
 
     chopSound.play();
 
     generateBranch(0);
     shiftArray();
     logHandle();
+
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       x.innerHTML = '';
     }, 350);
 
     timeoutTimer = true;
-    console.log(branchArray);
-    if (keyPressed === 'ArrowLeft' || keyPressed === 'a') {
-      lumberjack.className = 'lumberjack lj-left';
-      explosion.className = 'explosion exp-left';
 
-      x.className = 'x-space x-left';
-      x.innerHTML = `<img src="images/x.png" style="top: ${getRnd(
-        3,
-        11
-      )}vh; left: ${getRnd(0, 3)}vh" />`;
-
-      if (branchArray[6] == 1) {
-        logs[6].appendChild(createBranch(1));
-        lost = true;
-        explosion.style.display = 'block';
-        hurtSound.play();
-        clearInterval(timer);
-      } else {
-        scoreP.innerHTML = ++score;
-      }
-    } else if (keyPressed === 'ArrowRight' || keyPressed === 'd') {
-      lumberjack.className = 'lumberjack lj-right';
-
-      explosion.className = 'explosion exp-right';
-      x.className = 'x-space x-right';
-      x.innerHTML = `<img src="images/x.png" style="top: ${getRnd(
-        3,
-        11
-      )}vh; right: ${getRnd(0, 3)}vh" />`;
-
-      if (branchArray[6] == 2) {
-        logs[6].appendChild(createBranch(2));
-        lost = true;
-        explosion.style.display = 'block';
-        hurtSound.play();
-      } else {
-        scoreP.innerHTML = ++score;
-      }
+    if (
+      keyPressed === 'ArrowLeft' ||
+      keyPressed === 'a' ||
+      keyPressed === 'ArrowRight' ||
+      keyPressed === 'd'
+    ) {
+      handleLeftRight(keyPressed);
     }
   }
 });
 
+// MOBILNE KONTROLE
 // window.addEventListener('click', (e) => {
 //   let clickPosition = e.clientX;
 
@@ -145,21 +162,45 @@ window.addEventListener('keydown', (e) => {
 //   }
 // });
 
-let time = 60;
-
+// STA SE DESAVA SVAKE SEKUNDE TIMER-A
 const timerFunction = () => {
   time--;
   timerText.innerHTML = time;
   timerText.style.color = `hsl(${time * 2}, 100%, 60%)`;
   if (time == 0) {
     lost = true;
+    popup.style.display = 'grid';
     clearInterval(timer);
   }
 };
 
 let timer;
 
-playButton.addEventListener('click', () => {
+// F-JA KOJA POSTAVLJA SVE POTREBNE PARAMETRE ZA POCETAK RUNDE
+const handleStart = () => {
+  clearInterval(timer);
+
   popup.style.display = 'none';
+
+  lost = false;
+
+  explosion.style.display = 'none';
+  logs[6].innerHTML = '';
+  lumberjack.className = 'lumberjack lj-left';
+
+  time = 60;
+  score = 0;
+  handleScore();
+  handleTime();
+
+  for (const branchI in branchArray) {
+    generateBranch(branchI);
+  }
+  logHandle();
+
   timer = setInterval(timerFunction, 1000);
+};
+
+playButton.addEventListener('click', () => {
+  handleStart();
 });
