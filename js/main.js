@@ -107,6 +107,7 @@ const handleScore = () => {
 
 const handleTime = () => {
   timerText.innerHTML = time;
+  timerText.style.color = `hsl(${time * 2}, 100%, 60%)`;
 };
 
 let hurtSound = new Audio('sounds/hurt.mp3');
