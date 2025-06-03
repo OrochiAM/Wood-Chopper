@@ -1,6 +1,5 @@
 const lumberjack = document.querySelector('.lumberjack');
 const explosion = document.querySelector('.explosion');
-const windowWidth = window.innerWidth;
 const scoreP = document.querySelector('.score');
 const logs = document.querySelectorAll('.log');
 const timerText = document.querySelector('.timer-text');
@@ -74,7 +73,7 @@ let time = 60;
 // F-JA KOJA ODREDJUJE STA CE SE DESITI KADA SE KLIKNE LEVO ILI DESNO DUGME
 const handleLeftRight = (key) => {
   let string;
-  key === 'ArrowLeft' ? (string = 'left') : (string = 'right');
+  key === 'ArrowLeft' || key === 'a' ? (string = 'left') : (string = 'right');
   let num = string == 'left' ? 1 : 2;
 
   lumberjack.className = `lumberjack lj-${string}`;
@@ -152,16 +151,33 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
+let start = 0;
 // MOBILNE KONTROLE
-// window.addEventListener('click', (e) => {
-//   let clickPosition = e.clientX;
+window.addEventListener('mousedown', (e) => {
+  if (!lost && start == 1) {
+    let clickPosition = e.clientX;
+    const windowWidth = window.innerWidth;
 
-//   if (clickPosition < windowWidth / 2) {
-//     lumberjack.className = 'lumberjack lj-left';
-//   } else {
-//     lumberjack.className = 'lumberjack lj-right';
-//   }
-// });
+    let chopSound = new Audio(`sounds/chop${getRnd(0, 2)}.wav`);
+
+    chopSound.play();
+
+    generateBranch(0);
+    shiftArray();
+    logHandle();
+
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      x.innerHTML = '';
+    }, 350);
+
+    if (clickPosition > windowWidth / 2) {
+      handleLeftRight('d');
+    } else {
+      handleLeftRight('a');
+    }
+  }
+});
 
 // STA SE DESAVA SVAKE SEKUNDE TIMER-A
 const timerFunction = () => {
@@ -202,6 +218,9 @@ const handleStart = () => {
   timer = setInterval(timerFunction, 1000);
 };
 
-playButton.addEventListener('click', () => {
+playButton.addEventListener('mouseup', () => {
   handleStart();
+  if (!start) {
+    start++;
+  }
 });
