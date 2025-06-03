@@ -217,3 +217,9 @@ body {
     transition-duration: 0.1s;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .keys {
+    visibility: hidden;
+  }
+}
